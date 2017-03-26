@@ -2,8 +2,17 @@
   "name": "babel-up",
   "version": "0.1.0",
   "description": "Test compatibility of codebase against latest Babel.",
-  "main": "index.js",
   "repository": "git@github.com:aaronang/babel-up.git",
   "author": "Aaron Ang <awz.ang@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src -d lib"
+  },
+  "bin": {
+    "babel-up": "./bin/babel-up.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-preset-env": "^1.2.2"
+  }
 }
