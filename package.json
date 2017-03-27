@@ -22,7 +22,6 @@
     "eslint-plugin-flowtype": "^2.30.4"
   },
   "dependencies": {
-    "command-exists": "^1.2.2",
     "nodegit": "^0.18.0"
   }
 }
