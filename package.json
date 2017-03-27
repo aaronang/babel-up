@@ -6,7 +6,8 @@
   "author": "Aaron Ang <awz.ang@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "babel src -d lib"
+    "build": "babel src --out-dir lib",
+    "watch": "babel src --watch --out-dir lib"
   },
   "bin": {
     "babel-up": "./bin/babel-up.js"
