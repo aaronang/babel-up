@@ -29,7 +29,7 @@ function get(repository) {
 function clone({ name, url, path }) {
   return Git.Clone(url, path)
     .then(() => {
-      console.log(`✨  ${name} cloned successfully.`);
+      console.log(`👯  ${name} cloned successfully.`);
       return;
     })
     .catch((error) => {

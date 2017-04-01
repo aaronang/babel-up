@@ -1,10 +1,11 @@
 import { getRepositories } from "./git";
-import { unlinkAll } from "./yarn";
+import { linkAll, unlinkAll } from "./yarn";
 
 getRepositories()
   .then(() => {
     console.log("🏁  Finished cloning and updating Babel repositories.");
   })
   .then(() => {
+    linkAll();
     unlinkAll();
   });
