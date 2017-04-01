@@ -10,14 +10,15 @@ export function linkAll() {
   packages.forEach((pkg) => {
     const package_path = path.join(BABEL_PACKAGES_PATH, pkg);
     process.chdir(package_path);
-    spawnSync("yarn link");
+    spawnSync("yarn", ["link"]);
+    console.log(`🔗  Created symbolic link for ${pkg}.`);
   });
 
   process.chdir(CWD);
 
   packages.forEach((pkg) => {
-    spawnSync(`yarn link ${pkg}`);
-    console.log(`🔗  ${pkg} successfully linked.`);
+    spawnSync("yarn", ["link", pkg]);
+    console.log(`🔗  Linked ${pkg}.`);
   });
 }
 
@@ -25,7 +26,7 @@ export function unlinkAll() {
   packages.forEach((pkg) => {
     const package_path = path.join(BABEL_PACKAGES_PATH, pkg);
     process.chdir(package_path);
-    spawnSync("yarn unlink");
-    console.log(`✂️  ${pkg} successfully unlinked.`);
+    spawnSync("yarn", ["unlink"]);
+    console.log(`✂️  Unlinked ${pkg}.`);
   });
 }

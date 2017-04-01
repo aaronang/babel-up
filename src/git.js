@@ -29,7 +29,7 @@ function get(repository) {
 function clone({ name, url, path }) {
   return Git.Clone(url, path)
     .then(() => {
-      console.log(`👯  ${name} cloned successfully.`);
+      console.log(`👯  Cloned ${name}.`);
       return;
     })
     .catch((error) => {
@@ -48,7 +48,7 @@ function update({ name, path, branch }) {
       return repository.mergeBranches(branch, `origin/${branch}`);
     })
     .then(() => {
-      console.log(`✨  ${name} updated successfully.`);
+      console.log(`✨  Updated ${name}.`);
       return;
     });
 }
