@@ -7,13 +7,15 @@ const repositories = [
     name: "babel/babel",
     url: "https://github.com/babel/babel.git",
     path: BABEL_PATH,
-    branch: "7.0"
+    branch: "7.0",
+    release: "v6.22.0"
   },
   {
     name: "babel/babel-preset-env",
     url: "https://github.com/babel/babel-preset-env.git",
     path: BABEL_PRESET_ENV_PATH,
-    branch: "master"
+    branch: "master",
+    release: "v1.3.0"
   }
 ];
 
@@ -28,9 +30,9 @@ function get(repository) {
 
 function clone({ name, url, path }) {
   return Git.Clone(url, path)
-    .then(() => {
+    .then((repository) => {
       console.log(`👯  Cloned ${name}.`);
-      return;
+      return repository;
     })
     .catch((error) => {
       console.error(`⚠️  ${error.message}.`);
@@ -49,10 +51,26 @@ function update({ name, path, branch }) {
     })
     .then(() => {
       console.log(`✨  Updated ${name}.`);
-      return;
+      return repository;
     });
 }
 
 export function getRepositories() {
-  return Promise.all(repositories.map((repository) => get(repository)));
+  return Promise.all(repositories.map((repository) => {
+    let repo;
+    return get(repository)
+      .then((r) => {
+        repo = r;
+        return repo.getReference(repository.release);
+      })
+      .then((ref) => {
+        return repo.setHeadDetached(ref.target());
+      })
+      .then(() => {
+        return Git.Checkout.head(repo, {
+          checkoutStrategy: Git.Checkout.STRATEGY.FORCE
+        });
+      })
+      .catch((error) => console.error(error));
+  }));
 }

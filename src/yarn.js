@@ -3,10 +3,10 @@ import fs from "fs";
 import path from "path";
 import { BABEL_PACKAGES_PATH, CWD } from "./paths";
 
-const packages = fs.readdirSync(BABEL_PACKAGES_PATH)
+export function linkAll() {
+  const packages = fs.readdirSync(BABEL_PACKAGES_PATH)
     .filter((f) => fs.statSync(path.join(BABEL_PACKAGES_PATH, f)).isDirectory());
 
-export function linkAll() {
   packages.forEach((pkg) => {
     const package_path = path.join(BABEL_PACKAGES_PATH, pkg);
     process.chdir(package_path);
@@ -23,6 +23,9 @@ export function linkAll() {
 }
 
 export function unlinkAll() {
+  const packages = fs.readdirSync(BABEL_PACKAGES_PATH)
+    .filter((f) => fs.statSync(path.join(BABEL_PACKAGES_PATH, f)).isDirectory());
+
   process.chdir(CWD);
   packages.forEach((pkg) => {
     spawnSync("yarn", ["unlink", pkg]);
